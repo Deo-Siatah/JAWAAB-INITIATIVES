@@ -1,6 +1,7 @@
 import {Plus} from "lucide-react";
 import { useState } from "react";
 import {Card, CardContent} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {Compass,EyeIcon} from "lucide-react";
 export default function AboutPage() {
      const [openMission, setOpenMission] = useState(false);
@@ -8,18 +9,24 @@ export default function AboutPage() {
      const [openValues, setOpenValues] = useState(false);
     
     return (
-        <div className="mt-10 bg-white grid grid-cols-1 md:grid-cols-2 gap-20 p-6">
+        <div className="mt-20 bg-white grid grid-cols-1 md:grid-cols-2 gap-20 p-6">
             {/* About Page Content */}
             <div>
                 <p className="inline-block bg-emerald-500/90 rounded-full mb-2 text-white text-sm font-merriweather font-bold px-3 py-2 ">About JAWAAB</p>
-                <h1 className="font-bold  text-4xl font-extrabold text-black mt-4">Dedicated to Creating 
-                    <span className="text-emerald-600"> Lasting </span>
-                    <p className="text-emerald-600">  Change </p>
+                <h1 className="font-bold text-4xl md:text-5xl font-extrabold text-black mt-4">Dedicated to Creating 
+                    <span className="text-emerald-600"> Lasting Change </span>
+                    
                 </h1>
                 <p className="font-inter text-gray-500 mt-4 ">
                     JAWAAB Empowerment Initiative is a grassroots organization committed to transforming communities through sustainable development programs. We believe that every individual deserves access to education, 
                     healthcare, and opportunities for growth.
                 </p>
+            <Button
+                className=" group px-8 py-3 mt-6 rounded-full hover:bg-emerald-700 transition-all duration-700"
+                size="md"
+            >
+                Learn our story
+            </Button>
             </div>
             {/*Right section*/}
             <div className=" w-full md:ml-20 flex flex-col gap-2">
@@ -31,7 +38,7 @@ export default function AboutPage() {
                     </h1>
                     {/*Dropdown content*/}
                     {openMission && (
-                        <Card className="absolute left-0 mt-2 bg-white border border-gray-200 shadow-lg z-20 w-full">
+                        <Card className="absolute  md:right-20 mt-2 bg-white border border-gray-200 shadow-lg z-20 w-full">
                             <CardContent className="px-4 ">
                                 <Compass className="inline-block h-6 w-6 text-emerald-600 m mb-2 "/>
                                 <h2 className="text-black font-bold">Our Mission</h2>
@@ -62,7 +69,7 @@ export default function AboutPage() {
                     </h1>
                     {/*Dropdown content*/}
                     {openVision && (
-                        <Card className="absolute left-0 mt-2 bg-white border border-gray-200 shadow-lg z-20 w-full">
+                        <Card className="absolute md:right-20 mt-2 bg-white border border-gray-200 shadow-lg z-20 w-full">
                             <CardContent className="px-4 ">
                                 <EyeIcon className="inline-block h-6 w-6 text-emerald-600 m mb-2 "/>
                                 <h2 className="text-black font-bold">Our Vision</h2>
@@ -92,7 +99,7 @@ export default function AboutPage() {
                     </h1>
                     {/*Dropdown content*/}
                     {openValues && (
-                        <Card className="absolute left-0 mt-2 bg-white border border-gray-200 shadow-lg z-20 w-full">
+                        <Card className="absolute md:right-20 mt-2 bg-white border border-gray-200 shadow-lg z-20 w-full">
                             <CardContent className="px-4 ">
                                 <EyeIcon className="inline-block h-6 w-6 text-emerald-600 m mb-2 "/>
                                 <h2 className="text-black font-bold">Our Values</h2>

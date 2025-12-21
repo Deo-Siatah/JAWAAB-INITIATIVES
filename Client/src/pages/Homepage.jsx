@@ -1,5 +1,8 @@
 import Navbar from "@/components/Navbar";
 import AboutPage from "@/pages/Aboutpage";
+import ProgramsOrbit from "@/pages/ProgramRadial";
+import Impactpage from "@/pages/ImpactPage";
+import ProjectsCardMock from "@/pages/ProjectsPage";
 import bgImage from "../assets/jawaab-hero.jpg";
 import {Heart,Users,ArrowRight} from "lucide-react";
 import {Button} from "@/components/ui/button"
@@ -7,14 +10,14 @@ import {Button} from "@/components/ui/button"
 
 export default function Homepage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-x-hidden">
         {/* Background image */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 w-full "
           style={{
             backgroundImage: `url(${bgImage})`,
             backgroundSize: "cover",
@@ -81,6 +84,12 @@ export default function Homepage() {
 
         {/* About Section */}
         <AboutPage />
+        {/* Programs Section */}
+        <ProgramsOrbit />
+        {/* Impact Section */}
+        <Impactpage />
+        {/* Projects Section */}
+        <ProjectsCardMock />
     </div>
   );
 }
