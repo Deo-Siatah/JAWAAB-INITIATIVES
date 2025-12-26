@@ -1,16 +1,23 @@
 import { Card } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
-
+import { useState } from "react";
 export function ProjectsCard({ image, title, description, area }) {
+    const [loading,setLoading]=useState(false);
   return (
-    <Card className="overflow-hidden hover:shadow-lg  transition-all transition-shadow duration-500 cursor-pointer max-w-sm p-0 m-4">
+    <Card className="bg-white overflow-hidden hover:shadow-lg hover:border-2 hover:border-emerald-300/90 transition-all transition-shadow duration-500 cursor-pointer max-w-sm p-0 m-4">
       <div className="flex flex-col h-full">
         {/* Image section */}
-        <div className="w-full aspect-video bg-gray-100 overflow-hidden">
+        <div className="relative w-full aspect-video bg-gray-100 overflow-hidden">
+         {!loading && (
+            <div  className="absolute inset-0 bg-gray-200 animate-pulse"/>
+        )}
           <img
             src={image}
             alt={title}
-            className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+            onLoad={() => setLoading(true)}
+            className={`w-full h-full object-cover hover:scale-105 transition-opacity duration-500 ${loading ? 'opacity-100' : 'opacity-0'}`}
           />
         </div>
 
@@ -18,7 +25,7 @@ export function ProjectsCard({ image, title, description, area }) {
         <div className="p-6 flex flex-col flex-grow">
           <h3 className="text-xl font-semibold mb-2">{title}</h3>
 
-          <span className="inline-block mt-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold w-fit">
+          <span className="inline-block mt-2 px-4 py-2 rounded-full shadow-md bg-emerald-100 text-emerald-700 text-xs font-semibold w-fit">
             {area}
           </span>
 

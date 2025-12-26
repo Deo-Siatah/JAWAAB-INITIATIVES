@@ -46,7 +46,7 @@ export default function Impactpage() {
         <h1 className="text-3xl md:text-5xl font-extrabold text-emerald-700">
           Making a Real Difference
         </h1>
-        <p className="mt-4 text-gray-600">
+        <p className="mt-4 text-gray-600 text-lg">
           Our impact across people, projects, and communities.
         </p>
       </div>

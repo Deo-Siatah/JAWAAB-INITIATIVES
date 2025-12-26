@@ -2,7 +2,10 @@ import Navbar from "@/components/Navbar";
 import AboutPage from "@/pages/Aboutpage";
 import ProgramsOrbit from "@/pages/ProgramRadial";
 import Impactpage from "@/pages/ImpactPage";
-import ProjectsCardMock from "@/pages/ProjectsPage";
+import ProjectsCardData from "@/pages/ProjectsPage";
+import Newsletter from "@/pages/Newsletter";
+import MediaCarousel from "@/components/ImageCarousel";
+import Footer from "@/components/Footer";
 import bgImage from "../assets/jawaab-hero.jpg";
 import {Heart,Users,ArrowRight} from "lucide-react";
 import {Button} from "@/components/ui/button"
@@ -50,20 +53,18 @@ export default function Homepage() {
 
             {/* CTA buttons */}
             <div className="mt-10 flex flex-wrap gap-4">
-             <Button
-            size="md"
-            className="group rounded-full bg-white px-12 py-4 text-sm font-bold
-                        text-emerald-700 border-2 border-transparent
-                        transition-all duration-300
-                        hover:border-red-700 hover:bg-emerald-200"
-            >
-            <Heart
-                className="mr-1 h-6 w-6 text-red-700
-                        fill-transparent
-                        transition-all duration-700
-                        group-hover:fill-red-700"
-            />
-            Donate Now
+                   <Button
+                size="md"
+                className="relative overflow-hidden rounded-full hover:bg-emerald-900 bg-emerald-500 px-12 py-3 text-base font-bold text-white"
+                >
+                {/* Radial wave */}
+                <span className="absolute inset-0 animate-wave pointer-events-none" />
+
+                {/* Content */}
+                <span className="relative flex items-center">
+                    <Heart className="h-6 w-6 mr-4 fill-white animate-heart" />
+                    Donate
+                </span>
             </Button>
               <Button className="rounded-full border-2 border-white px-8 py-3 text-sm font-semibold text-white bg-white/10 transition"
               size="md">
@@ -89,7 +90,13 @@ export default function Homepage() {
         {/* Impact Section */}
         <Impactpage />
         {/* Projects Section */}
-        <ProjectsCardMock />
+        <ProjectsCardData />
+        {/* Newsletter Section */}
+        <Newsletter />
+        {/* Media Section */}
+        <MediaCarousel />
+        {/*Footer section*/}
+        <Footer/>
     </div>
   );
 }

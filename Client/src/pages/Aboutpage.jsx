@@ -3,13 +3,23 @@ import { useState } from "react";
 import {Card, CardContent} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {Compass,EyeIcon} from "lucide-react";
+import JawaabLogo from "@/assets/jaawaab-logo.png";
 export default function AboutPage() {
      const [openMission, setOpenMission] = useState(false);
      const [openVision, setOpenVision] = useState(false);
      const [openValues, setOpenValues] = useState(false);
     
     return (
-        <div className="mt-20 bg-white grid grid-cols-1 md:grid-cols-2 gap-20 p-6">
+        <div className="mt-20 py-20 bg-white relative overflow-hidden">
+        <img
+            src={JawaabLogo}
+            alt="Jawaab"
+            aria-hidden="true"
+            className="pointer-events-none absolute top-1/2 left-1/2
+            -translate-x-1/2 -translate-y-1/2 opacity-[0.05] w-[120%] max-w-none
+            md:w-[40%] lg:w-[40%]"
+        />
+        <div className=" relative z-10 grid grid-cols-1 md:grid-cols-2 gap-20 p-6">
             {/* About Page Content */}
             <div>
                 <p className="inline-block bg-emerald-500/90 rounded-full mb-2 text-white text-sm font-merriweather font-bold px-3 py-2 ">About JAWAAB</p>
@@ -124,6 +134,7 @@ export default function AboutPage() {
 
             </div>
 
+        </div>
         </div>
     )
 }
