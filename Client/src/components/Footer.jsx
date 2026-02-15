@@ -53,7 +53,7 @@ export default function Footer() {
                 <a href="https://www.linkedin.com/in/deo-siatah-701520248/" target="_blank" rel="noopener noreferrer">
                     <FaLinkedin className="h-10 w-10 hover:text-blue-400 transition cursor-pointer"/>
                 </a>
-                <a>
+                <a href="https://wa.me/254758943430" target="_blank" rel="noopener noreferrer">
                     <FaWhatsapp className="h-10 w-10 hover:text-green-300 transition cursor-pointer"/>
                 </a>
                 <a>
