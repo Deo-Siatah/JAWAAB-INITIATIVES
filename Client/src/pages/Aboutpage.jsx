@@ -32,7 +32,7 @@ export default function AboutPage() {
                     healthcare, and opportunities for growth.
                 </p>
             <Button
-                className=" group px-8 py-3 mt-6 rounded-full hover:bg-emerald-700 transition-all duration-700"
+                className=" group px-6 py-5 mt-6 rounded-md hover:bg-emerald-700 transition-all duration-700"
                 size="md"
             >
                 Learn our story
@@ -53,8 +53,7 @@ export default function AboutPage() {
                                 <Compass className="inline-block h-6 w-6 text-emerald-600 m mb-2 "/>
                                 <h2 className="text-black font-bold">Our Mission</h2>
                                 <p className="font-inter text-gray-500">
-                                    To empower underprivileged communities by providing access to quality education, healthcare, and sustainable livelihood opportunities, 
-                                    fostering self-reliance and dignity for all.
+                                    To empower communities through climate action, promotion of mental health, advancement of gender equity, and sustainable access to WASH
                                 </p>
 
                             </CardContent>
@@ -84,8 +83,7 @@ export default function AboutPage() {
                                 <EyeIcon className="inline-block h-6 w-6 text-emerald-600 m mb-2 "/>
                                 <h2 className="text-black font-bold">Our Vision</h2>
                                 <p className="font-inter text-gray-500">
-                                    A world where every community has the resources and support needed to thrive, where poverty is eradicated,
-                                     and where every individual can reach their full potential.
+                                    To create empowered, resilient, and inclusive communities that thrive in harmony with the environment, mental wellness, gender equity, and sustainable health practices.
                                 </p>
 
                             </CardContent>
@@ -114,7 +112,7 @@ export default function AboutPage() {
                                 <EyeIcon className="inline-block h-6 w-6 text-emerald-600 m mb-2 "/>
                                 <h2 className="text-black font-bold">Our Values</h2>
                                 <p className="font-inter text-gray-500">
-                                    Compassion, integrity, community-driven solutions, sustainability, and accountability 
+                                    Equity, integrity, well-being, sustainability, and inclusivity
                                     guide every action we take in service of those we support.
                                 </p>
 

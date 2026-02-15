@@ -59,7 +59,9 @@ export default function Footer() {
                 <a>
                     <FaTiktok className="h-10 w-10 hover:text-black transition duration-700 cursor-pointer"/>
                 </a>
+                <a href="https://www.facebook.com/share/1aqkfEyU7n/" target="_blank" rel="noopener noreferrer">
                     <FaFacebook className="h-10 w-10 hover:text-white cursor-pointer"/>
+                </a>
                 </div>
             <div className="mt-3 ">
                 <p className="text-white/90 text-lg">Jawaab Initiatives is a community-driven nonprofit empowering vulnerable communities through mental wellness, gender equality, WASH, and climate action.</p>
