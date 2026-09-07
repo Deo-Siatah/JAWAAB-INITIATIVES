@@ -9,7 +9,7 @@ import ProjectStoryPage from "../pages/ProjectStorypage";
 // Public Pages
 import Homepage from "../pages/Homepage";
 import ProgramDetailPage from "../pages/ProgramDetailPage";
-import DonatePage from "../pages/DonatePage";
+import DonatePage from "../pages/DonatePage ";
 import JawaabStory from "../pages/JawaabStory";
 
 // Admin Pages
