@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Compass, Eye, ShieldCheck, ArrowRight, Loader2 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import JawaabLogo from "@/assets/jawaab-logo.jpeg";
 import aboutImg1 from "@/assets/jawaab3.webp";
@@ -175,10 +176,12 @@ export default function AboutPage() {
 
             {/* Action Trigger */}
             <div className="mt-8">
+              <Link to="/our-story">
               <Button size="lg" className="flex items-center gap-2 group">
                 <span>Learn Our Full Story</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
+              </Link>
             </div>
 
           </div>

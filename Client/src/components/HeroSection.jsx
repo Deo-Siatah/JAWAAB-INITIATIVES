@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Heart, ArrowRight } from "lucide-react";
 
@@ -105,6 +106,7 @@ export default function HeroSection() {
         <div className="flex flex-wrap items-center gap-4 animate-in fade-in slide-in-from-bottom-6 duration-1000">
           
           {/* Custom Gradient & Hover Donate CTA */}
+          <Link to="/donate">
           <button
             onClick={() => scrollToSection("newsletter")}
             className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full font-bold text-slate-950 cursor-pointer overflow-hidden transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-amber-500/25 border border-amber-300/40"
@@ -119,6 +121,7 @@ export default function HeroSection() {
             <Heart className="relative z-10 w-5 h-5 fill-slate-950 text-slate-950 transition-transform duration-300 group-hover:scale-110" />
             <span className="relative z-10 tracking-wide">Donate Now</span>
           </button>
+          </Link>
 
           {/* Secondary Explore CTA */}
           <Button

@@ -3,11 +3,17 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Layouts
 import PublicLayout from "../layouts/PublicLayout";
 import AdminLayout from "../layouts/AdminLayout";
+import ProtectedRoute from "./ProtectedRoutes";
+import ProjectStoryPage from "../pages/ProjectStoryPage";
 
 // Public Pages
 import Homepage from "../pages/Homepage";
+import ProgramDetailPage from "../pages/ProgramDetailPage";
+import DonatePage from "../pages/DonatePage";
+import JawaabStory from "../pages/JawaabStory";
 
 // Admin Pages
+import AdminLogin from "../pages/admin/AdminLogin";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import MediaManager from "../pages/admin/MediaManager";
 import EventScheduler from "../pages/admin/EventScheduler";
@@ -17,17 +23,26 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public Site Routes */}
+        {/* Public Site */}
         <Route path="/" element={<PublicLayout />}>
           <Route index element={<Homepage />} />
+          <Route path="projects/:id" element={<ProjectStoryPage />} />
+          <Route path="programs/:id" element={<ProgramDetailPage />} />
+          <Route path="donate" element={<DonatePage />} />
+          <Route path="our-story" element={<JawaabStory />} />
         </Route>
 
-        {/* Admin Dashboard Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="media" element={<MediaManager />} />
-          <Route path="events" element={<EventScheduler />} />
-          <Route path="projects" element={<ProjectEditor />} />
+        {/* Public Login Route */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+
+        {/* Protected Admin Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="media" element={<MediaManager />} />
+            <Route path="events" element={<EventScheduler />} />
+            <Route path="projects" element={<ProjectEditor />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
