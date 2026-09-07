@@ -1,138 +1,189 @@
-import {Plus} from "lucide-react";
-import { useState } from "react";
-import {Card, CardContent} from "@/components/ui/card";
+import React, { useState } from "react";
+import { Compass, Eye, ShieldCheck, ArrowRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {Compass,EyeIcon} from "lucide-react";
-import JawaabLogo from "@/assets/jaawaab-logo.png";
+import JawaabLogo from "@/assets/jawaab-logo.jpeg";
+import aboutImg1 from "@/assets/jawaab3.webp";
+import aboutImg2 from "@/assets/Jawaab4.webp";
+
 export default function AboutPage() {
-     const [openMission, setOpenMission] = useState(false);
-     const [openVision, setOpenVision] = useState(false);
-     const [openValues, setOpenValues] = useState(false);
-    
-    return (
-        <div className="mt-20 py-20 bg-white relative overflow-hidden">
-        <img
-            src={JawaabLogo}
-            alt="Jawaab"
-            aria-hidden="true"
-            className="pointer-events-none absolute top-1/2 left-1/2
-            -translate-x-1/2 -translate-y-1/2 opacity-[0.05] w-[120%] max-w-none
-            md:w-[40%] lg:w-[40%]"
-        />
-        <div className=" relative z-10 grid grid-cols-1 md:grid-cols-2 gap-20 p-6">
-            {/* About Page Content */}
-            <div>
-                <p className="inline-block bg-emerald-500/90 rounded-full mb-2 text-white text-sm font-merriweather font-bold px-3 py-2 ">About JAWAAB</p>
-                <h1 className="font-bold text-4xl md:text-5xl font-extrabold text-black mt-4">Dedicated to Creating 
-                    <span className="text-emerald-600"> Lasting Change </span>
-                    
-                </h1>
-                <p className="font-inter text-gray-500 mt-4 ">
-                    JAWAAB Empowerment Initiative is a grassroots organization committed to transforming communities through sustainable development programs. We believe that every individual deserves access to education, 
-                    healthcare, and opportunities for growth.
-                </p>
-            <Button
-                className=" group px-6 py-5 mt-6 rounded-md hover:bg-emerald-700 transition-all duration-700"
-                size="md"
+  const [activePillar, setActivePillar] = useState("mission");
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const pillars = {
+    mission: {
+      title: "OUR MISSION",
+      subtitle: "Targeted Action on the Ground",
+      icon: Compass,
+      description:
+        "To empower communities through strategic climate action, promotion of mental health awareness, advancement of gender equity, and sustainable access to clean water, sanitation, and hygiene (WASH).",
+      tags: ["Climate Action", "Mental Health", "Gender Equity", "WASH Access"],
+    },
+    vision: {
+      title: "OUR VISION",
+      subtitle: "A Resilient, Self-Sustaining Future",
+      icon: Eye,
+      description:
+        "To create empowered, resilient, and inclusive communities that thrive in harmony with the environment, mental wellness, gender equity, and sustainable health practices for generations to come.",
+      tags: ["Sustainability", "Inclusive Growth", "Resilience", "Community Well-being"],
+    },
+    values: {
+      title: "OUR VALUES",
+      subtitle: "Principled Commitment",
+      icon: ShieldCheck,
+      description:
+        "Equity, integrity, well-being, environmental stewardship, and radical inclusivity guide every single decision, partnership, and field operation we undertake.",
+      tags: ["Radical Integrity", "Equity First", "Stewardship", "Transparency"],
+    },
+  };
+
+  const handleTabChange = (key) => {
+    if (key === activePillar) return;
+    setIsAnimating(true);
+    setActivePillar(key);
+    setTimeout(() => setIsAnimating(false), 300);
+  };
+
+  const currentPillar = pillars[activePillar];
+  const ActiveIcon = currentPillar.icon;
+
+  return (
+    <section className="relative py-20 bg-white font-sans-inter overflow-hidden border-t border-slate-100">
+      {/* 1. Static Brand Logo Watermark */}
+      <img
+        src={JawaabLogo}
+        alt="Jawaab Emblem Watermark"
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-16 top-1/2 -translate-y-1/2 opacity-[0.2] w-[500px] max-w-none select-none"
+      />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* LEFT: Solid Editorial Image Frame (No Floaters / No Glassmorphism) */}
+          <div className="lg:col-span-6">
+            <div className="relative mx-auto max-w-md lg:max-w-none">
+              {/* Primary Image Container */}
+              <div className="relative rounded-2xl overflow-hidden shadow-lg bg-slate-100 aspect-[4/3] sm:aspect-[14/10]">
+                <img
+                  src={activePillar === "mission" ? aboutImg1 : aboutImg2}
+                  alt="Jawaab Community Initiative"
+                  className={`w-full h-full object-cover transition-all duration-500 ${
+                    isAnimating ? "scale-105 opacity-80 blur-sm" : "scale-100 opacity-100"
+                  }`}
+                />
+                <div className="absolute inset-0 bg-slate-950/20" />
+              </div>
+
+              {/* Accent Image Inset Frame */}
+              <div className="mt-4 grid grid-cols-2 gap-4">
+                <div className="rounded-xl overflow-hidden h-28 bg-slate-100 border border-slate-200">
+                  <img
+                    src={aboutImg2}
+                    alt="Field operations"
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+                  />
+                </div>
+                <div className="rounded-xl bg-slate-900 p-4 text-white flex flex-col justify-between border border-slate-800">
+                  <span className="text-[10px] font-bold tracking-widest text-emerald-400 uppercase">Grassroots Action</span>
+                  <p className="text-xs font-medium text-slate-300 leading-snug">Empowering communities across Kenya and beyond.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT: Editorial Copy & Interactive Radar Selector */}
+          <div className="lg:col-span-6 flex flex-col justify-center">
+            
+            {/* Minimal Section Tag */}
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-2 h-2 rounded-full bg-[var(--primary)]" />
+              <span className="text-xs font-bold text-[var(--primary)] uppercase tracking-wider">
+                About JAWAAB Initiative
+              </span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl font-serif-editorial font-bold text-slate-900 leading-tight mb-4">
+              Dedicated to Creating <span className="text-[var(--primary)]">Lasting Impact</span>
+            </h2>
+
+            <p className="text-slate-600 text-base leading-relaxed mb-8">
+              JAWAAB Empowerment Initiative is a grassroots movement focused on uplifting communities through sustainable development, health promotion, and direct action.
+            </p>
+
+            {/* 2. Interactive Icon Radar Pills */}
+            <div className="flex flex-wrap gap-2 mb-6 border-b border-slate-200 pb-4">
+              {Object.keys(pillars).map((key) => {
+                const item = pillars[key];
+                const Icon = item.icon;
+                const isActive = activePillar === key;
+
+                return (
+                  <button
+                    key={key}
+                    onClick={() => handleTabChange(key)}
+                    className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 ${
+                      isActive
+                        ? "bg-slate-900 text-white shadow-md"
+                        : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
+                    }`}
+                  >
+                    {isActive ? (
+                      <Loader2 className="w-4 h-4 text-emerald-400 animate-spin" />
+                    ) : (
+                      <Icon className="w-4 h-4 text-slate-500" />
+                    )}
+                    <span>{item.title}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* 3. Morphing Detail Box */}
+            <div
+              className={`bg-slate-50 border border-slate-200/80 rounded-2xl p-6 transition-all duration-300 ${
+                isAnimating ? "scale-[0.98] opacity-50" : "scale-100 opacity-100"
+              }`}
             >
-                Learn our story
-            </Button>
-            </div>
-            {/*Right section*/}
-            <div className=" w-full md:ml-20 flex flex-col gap-2">
-            <div className="cursor-pointer relative"
-                onClick={() => setOpenMission(!openMission)}>
-                    <h1 className="flex items-center text-4xl font-bold font-merriweather text-gray-600 mt-8">
-                        OUR MISSION
-                        <Plus className={`inline-block ml-2 h-8 w-8 text-emerald-600 transition-transform ${openMission ? 'rotate-45' : ""} `}/>
-                    </h1>
-                    {/*Dropdown content*/}
-                    {openMission && (
-                        <Card className="absolute  md:right-20 mt-2 bg-white border border-gray-200 shadow-lg z-20 w-full">
-                            <CardContent className="px-4 ">
-                                <Compass className="inline-block h-6 w-6 text-emerald-600 m mb-2 "/>
-                                <h2 className="text-black font-bold">Our Mission</h2>
-                                <p className="font-inter text-gray-500">
-                                    To empower communities through climate action, promotion of mental health, advancement of gender equity, and sustainable access to WASH
-                                </p>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-2 rounded-lg bg-emerald-500/10 text-[var(--primary)]">
+                  <ActiveIcon className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-heading-poppins font-bold text-base text-slate-900">
+                    {currentPillar.title}
+                  </h3>
+                  <p className="text-xs text-[var(--primary)] font-semibold">{currentPillar.subtitle}</p>
+                </div>
+              </div>
 
-                            </CardContent>
-                        </Card>
-                    )}
-                  <div className="relative mt-4 h-0.5 overflow-hidden bg-emerald-600/50">
-            <div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/80 to-transparent"
-                style={{
-                animation: "shine 5s linear infinite",
-                }}
-            />
+              <p className="text-slate-600 text-sm leading-relaxed mb-5">
+                {currentPillar.description}
+              </p>
+
+              {/* Functional Tags */}
+              <div className="flex flex-wrap gap-2">
+                {currentPillar.tags.map((tag, idx) => (
+                  <span
+                    key={idx}
+                    className="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-white border border-slate-200 text-slate-700 shadow-2xs"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
 
-            </div>
-                {/*vision section*/}
-            <div className="cursor-pointer relative"
-                onClick={() => setOpenVision(!openVision)}>
-                    <h1 className="flex items-center text-4xl font-bold font-merriweather text-gray-600 mt-8">
-                        OUR VISION
-                        <Plus className={`inline-block ml-2 h-8 w-8 text-emerald-600 transition-transform ${openVision? 'rotate-45' : ""} `}/>
-                    </h1>
-                    {/*Dropdown content*/}
-                    {openVision && (
-                        <Card className="absolute md:right-20 mt-2 bg-white border border-gray-200 shadow-lg z-20 w-full">
-                            <CardContent className="px-4 ">
-                                <EyeIcon className="inline-block h-6 w-6 text-emerald-600 m mb-2 "/>
-                                <h2 className="text-black font-bold">Our Vision</h2>
-                                <p className="font-inter text-gray-500">
-                                    To create empowered, resilient, and inclusive communities that thrive in harmony with the environment, mental wellness, gender equity, and sustainable health practices.
-                                </p>
-
-                            </CardContent>
-                        </Card>
-                    )}
-                  <div className="relative mt-4 h-0.5 overflow-hidden bg-emerald-600/50">
-            <div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/80 to-transparent"
-                style={{
-                animation: "shine 5s linear infinite",
-                }}
-            />
-            </div>
-            </div>
-            {/*values section*/}
-            <div className="cursor-pointer relative"
-                onClick={() => setOpenValues(!openValues)}>
-                    <h1 className="flex items-center text-4xl font-bold font-merriweather text-gray-600 mt-8">
-                        OUR VALUES
-                        <Plus className={`inline-block ml-2 h-8 w-8 text-emerald-600 transition-transform ${openValues ? 'rotate-45' : ""} `}/>
-                    </h1>
-                    {/*Dropdown content*/}
-                    {openValues && (
-                        <Card className="absolute md:right-20 mt-2 bg-white border border-gray-200 shadow-lg z-20 w-full">
-                            <CardContent className="px-4 ">
-                                <EyeIcon className="inline-block h-6 w-6 text-emerald-600 m mb-2 "/>
-                                <h2 className="text-black font-bold">Our Values</h2>
-                                <p className="font-inter text-gray-500">
-                                    Equity, integrity, well-being, sustainability, and inclusivity
-                                    guide every action we take in service of those we support.
-                                </p>
-
-                            </CardContent>
-                        </Card>
-                    )}
-                  <div className="relative mt-4 h-0.5 overflow-hidden bg-emerald-600/50">
-            <div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/80 to-transparent"
-                style={{
-                animation: "shine 5s linear infinite",
-                }}
-            />
-            </div>
-            </div>
-                
-
+            {/* Action Trigger */}
+            <div className="mt-8">
+              <Button size="lg" className="flex items-center gap-2 group">
+                <span>Learn Our Full Story</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Button>
             </div>
 
+          </div>
         </div>
-        </div>
-    )
+      </div>
+    </section>
+  );
 }

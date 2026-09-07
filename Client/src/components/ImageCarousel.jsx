@@ -49,7 +49,7 @@ export default function MediaCarousel() {
       {/* Heading */}
       <div className="mb-12 text-center">
         <span className="inline-block bg-emerald-50 px-6 py-4 rounded-full text-sm font-semibold text-emerald-700 shadow-md">
-          Through the Media
+          Through the Gallery
         </span>
       </div>
 

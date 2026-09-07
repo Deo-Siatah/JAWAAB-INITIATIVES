@@ -1,215 +1,219 @@
-import jawaablogo from "@/assets/jaawaab-logo.png";
-import { useState, useEffect } from "react";
-import {Heart,Menu,X} from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
+import { Menu, X, Heart, Shield } from "lucide-react";
+import logo from "../assets/jaawaab-logo.png";
 
 export default function Navbar() {
-    const [openAbout,setOpenAbout] = useState(false);
-    const [openPrograms,setOpenPrograms] = useState(false);
-    const [openImpact,setOpenImpact] = useState(false);
-    const [openJoinUs,setOpenJoinUs] = useState(false);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-    // Prevent body scroll when mobile menu is open
-    useEffect(() => {
-      if (isMobileMenuOpen) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = 'unset';
-      }
-      return () => {
-        document.body.style.overflow = 'unset';
-      };
-    }, [isMobileMenuOpen]);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
+  // Navigation Links matching continuous scroll sections on Homepage
+  const navItems = [
+    { label: "About Us", href: "#about", id: "about" },
+    { label: "Programs", href: "#programs", id: "programs" },
+    { label: "Impact", href: "#impact", id: "impact" },
+    { label: "Projects", href: "#projects", id: "projects" },
+    { label: "Get Involved", href: "#newsletter", id: "newsletter" },
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // 1. Navbar elevation toggle
+      setIsScrolled(window.scrollY > 40);
+
+      // 2. Scroll Progress calculation
+      const winScroll = document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      setScrollProgress(scrolled);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // 3. Section Scroll Tracker via IntersectionObserver
+  useEffect(() => {
+    if (!isHomePage) return;
+
+    const sectionIds = ["hero", "about", "programs", "impact", "projects", "newsletter"];
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -60% 0px",
+      threshold: 0,
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [isHomePage]);
+
+  const scrollToSection = (e, href) => {
+    if (!isHomePage) return; // Allow normal route navigation if off homepage
+    e.preventDefault();
+    setMobileMenuOpen(false);
+
+    const targetId = href.replace("#", "");
+    const element = document.getElementById(targetId);
+    if (element) {
+      const yOffset = -80; // Offset for sticky navbar height
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
 
   return (
-    <>
-    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-[#f5f9f6] border-b border-gray-200 shadow-md">
-      <div className="max-w-8xl mx-auto px-4 md:px-4 lg:px-8"> 
-        <div className="flex items-center justify-between h-24">
-          {/* Logo and Title */}
-          <div className="flex items-center gap-3">
-            <img src={jawaablogo} alt="Jawaab logo" className="h-16 w-16" />
-            <div className="leading-tight">
-              <p className="text-emerald-600 font-bold text-xl md:text-2xl">JAWAAB</p>
-              <p className="text-xs md:text-sm text-gray-600">Empowerment</p>
-            </div>
-          </div>
-
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-10">
-            <div className="relative inline-block" onMouseEnter={()=> setOpenAbout(true)} onMouseLeave={()=> setOpenAbout(false)}>
-            <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block pb-1">
-              About
-              <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-            </a>
-            {openAbout && (
-                <div className="absolute bg-[#f5f9f6] top-full left-0 border border-gray-300 h-auto p-8 gap-y-4 flex flex-col items-start w-max mt-1 z-50 rounded-sm shadow-lg">
-                    <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block">Our Mission
-                         <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-                    </a>
-                    <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block pb-1">Our Vision
-                        <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-                    </a>
-                    <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block pb-1">Our Values
-                        <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-                    </a>
-                    <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block pb-1">Contact
-                        <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-                    </a>
-                </div>
-            )}
-            </div>
-            {/* Programs Dropdown */}
-            <div className="relative inline-block" onMouseEnter={() => setOpenPrograms(true)} onMouseLeave={() => setOpenPrograms(false)}>
-            <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block pb-1">Our Programs
-                <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-            </a>
-            {openPrograms && (
-                <div className="absolute bg-[#f5f9f6] top-full left-0 border border-gray-300 h-auto p-8 gap-y-4 flex flex-col items-start w-max mt-1 z-50 rounded-md shadow-lg">
-                    <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block">Mental Wellness
-                         <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-                    </a>
-                    <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block">Gender Equity
-                         <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-                    </a>
-                    <a href="#" className="relative inline-block text-emerald-600 font-semibold text-base group pb-1"> WASH
-                         <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-[width] duration-300 group-hover:w-full"></span> </a>
-                    <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block">Climate Action
-                         <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-                    </a>
-                </div>
-            )}
-            </div>
-            {/* Impact Dropdown */}
-            <div className="relative inline-block" onMouseEnter={() => setOpenImpact(true)} onMouseLeave={() => setOpenImpact(false)}>
-            <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block pb-1">Our Impact
-                <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-            </a>
-            {openImpact && (
-                <div className="absolute bg-[#f5f9f6] top-full left-0 border border-gray-300 h-auto p-8 gap-y-4 flex flex-col items-start w-max mt-1 z-50 rounded-md shadow-lg">
-                    <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block">Projects
-                         <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-                    </a>
-                    <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block">Success Stories
-                         <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-                    </a>
-                     <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block">Impact Reports
-                         <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-                    </a>
-                 </div>
-             )}
-            </div>
-            {/*Join us*/}
-            <div className="relative inline-block" onMouseEnter={() => setOpenJoinUs(true)} onMouseLeave={() => setOpenJoinUs(false)}>
-            <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block pb-1">Join Us
-                <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-            </a>
-            {openJoinUs && (
-                <div className="absolute bg-[#f5f9f6] top-full left-0 border border-gray-300 h-auto p-8 gap-y-4 flex flex-col items-start w-max mt-1 z-50 rounded-md shadow-lg">
-                    <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block">Become a volunteer
-                         <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-                    </a>
-                    <a href="#" className="text-emerald-600 font-semibold text-base relative group inline-block">Subscribe
-                         <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-emerald-600 transition-all duration-300 group-hover:w-full" ></span>
-                    </a>
-                </div>
-                )}
-            </div>
-            <Button
-                size="md"
-                className="relative overflow-hidden rounded-md bg-emerald-500 px-8 py-3 text-base font-bold text-white"
-                >
-                {/* Radial wave */}
-                <span className="absolute inset-0 hover:animate-wave pointer-events-none" />
-
-                {/* Content */}
-                <span className="relative flex items-center">
-                    <Heart className="h-6 w-6 mr-2 fill-white animate-heart" />
-                    Donate
-                </span>
-            </Button>
-
-          </nav>
-
-          {/* Mobile Menu Button and Donate Button */}
-          <div className="md:hidden flex items-center gap-2">
-            <Button
-                size="md"
-                className="relative overflow-hidden rounded-md bg-emerald-500 px-4 py-3 text-sm font-bold text-white"
-                >
-                <span className="absolute inset-0 hover:animate-wave pointer-events-none" />
-                <span className="relative flex items-center">
-                    <Heart className="h-5 w-5 mr-1 fill-white animate-heart" />
-                    Donate
-                </span>
-            </Button>
-            <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="relative w-10 h-10 flex items-center justify-center"
-            >
-                <Menu className={`h-8 w-8 text-emerald-600 absolute transition-all duration-300 ${
-                    isMobileMenuOpen ? "rotate-90 opacity-0 scale-0" : "rotate-0 opacity-100 scale-100"
-                }`}/>
-                <X className={`h-8 w-8 text-emerald-600 absolute transition-all duration-300 ${
-                    isMobileMenuOpen ? "rotate-0 opacity-100 scale-100" : "-rotate-90 opacity-0 scale-0"
-                }`}/>
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    {/* Spacer to prevent content from going under fixed navbar */}
-    <div className="h-24"></div>
-
-    {/* Mobile Menu Overlay - Full Screen with slide animation */}
-    <div
-      className={`fixed inset-0 z-40 bg-gray-900/90 md:hidden transform transition-transform duration-500 ease-in-out ${
-        isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "glass-header shadow-md border-b border-emerald-900/10 py-3"
+          : "bg-white py-5"
       }`}
     >
-      {/* Push content below navbar */}
-      <div className="h-24"></div>
-      
-      {/* Scrollable menu content */}
-      <nav className="h-[calc(100vh-6rem)] overflow-y-auto px-6 py-6">
-        <div className="flex flex-col gap-6">
-          {/* About Section */}
-          <div className="flex flex-col gap-3">
-            <h3 className="text-emerald-600 font-bold text-lg border-b border-gray-300 pb-2">About</h3>
-            <a href="#" className="text-white font-semibold text-base pl-4">Our Mission</a>
-            <a href="#" className="text-white font-semibold text-base pl-4">Our Vision</a>
-            <a href="#" className="text-white font-semibold text-base pl-4">Our Values</a>
-            <a href="#" className="text-white font-semibold text-base pl-4">Contact</a>
-          </div>
+      {/* 1. Real-time Scroll Progress Bar */}
+      <div
+        className="absolute top-0 left-0 h-[3px] bg-[var(--primary)] transition-all duration-150 ease-out z-50"
+        style={{ width: `${scrollProgress}%` }}
+      />
 
-          {/* Programs Section */}
-          <div className="flex flex-col gap-3">
-            <h3 className="text-emerald-600 font-bold text-lg border-b border-gray-300 pb-2">Our Programs</h3>
-            <a href="#" className="text-white font-semibold text-base pl-4">Mental Wellness</a>
-            <a href="#" className="text-white font-semibold text-base pl-4">Gender Equity</a>
-            <a href="#" className="text-white font-semibold text-base pl-4">WASH</a>
-            <a href="#" className="text-white font-semibold text-base pl-4">Climate Action</a>
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        {/* Logo Brand */}
+        <a
+          href="#hero"
+          onClick={(e) => scrollToSection(e, "#hero")}
+          className="flex items-center gap-3 group"
+        >
+          <img
+            src={logo}
+            alt="Jaawaab Logo"
+            className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+          />
+          <div className="flex flex-col">
+            <span className="font-heading-poppins font-bold text-xl tracking-tight text-foreground">
+              JAWAAB
+            </span>
+            <span className="text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] -mt-1 font-semibold">
+              Empowerment INITIATIVES
+            </span>
           </div>
+        </a>
 
-          {/* Impact Section */}
-          <div className="flex flex-col gap-3">
-            <h3 className="text-emerald-600 font-bold text-lg border-b border-gray-300 pb-2">Our Impact</h3>
-            <a href="#" className="text-white font-semibold text-base pl-4">Projects</a>
-            <a href="#" className="text-white font-semibold text-base pl-4">Success Stories</a>
-            <a href="#" className="text-white font-semibold text-base pl-4">Impact Reports</a>
-          </div>
+        {/* Desktop Navigation Links */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navItems.map((item) => {
+            const isActive = isHomePage && activeSection === item.id;
+            return (
+              <a
+                key={item.id}
+                href={item.href}
+                onClick={(e) => scrollToSection(e, item.href)}
+                className={`text-sm font-medium transition-all duration-200 relative py-1 ${
+                  isActive
+                    ? "text-[var(--primary)] font-semibold"
+                    : "text-foreground/80 hover:text-[var(--primary)]"
+                }`}
+              >
+                {item.label}
+                {isActive && (
+                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--primary)] rounded-full animate-in fade-in zoom-in-50 duration-200" />
+                )}
+              </a>
+            );
+          })}
+        </nav>
 
-          {/* Join Us Section */}
-          <div className="flex flex-col gap-3">
-            <h3 className="text-emerald-600 font-bold text-lg border-b border-gray-300 pb-2">Join Us</h3>
-            <a href="#" className="text-white font-semibold text-base pl-4">Become a volunteer</a>
-            <a href="#" className="text-white font-semibold text-base pl-4">Subscribe</a>
+        {/* Action Buttons & Admin Shortcut */}
+        <div className="hidden md:flex items-center gap-4">
+    
+
+          {/* Dynamic Donate CTA */}
+          <a href="#newsletter" onClick={(e) => scrollToSection(e, "#newsletter")}>
+            <button
+  onClick={(e) => scrollToSection(e, "#newsletter")}
+  className={`group relative inline-flex items-center gap-2 rounded-full font-bold text-slate-950 cursor-pointer overflow-hidden transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md shadow-amber-500/25 border border-amber-300/40 ${
+    isScrolled ? "px-5 py-2 text-xs" : "px-7 py-2.5 text-sm"
+  }`}
+>
+  {/* Default Background */}
+  <span className="absolute inset-0 bg-amber-500 transition-opacity duration-300 group-hover:opacity-0" />
+
+  {/* Hover Background: Gradient fading into light amber */}
+  <span className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-b from-amber-400 via-amber-200/90 to-amber-100 transition-opacity duration-500 ease-out" />
+
+  {/* Button Content */}
+  <Heart className="relative z-10 w-4 h-4 fill-slate-950 text-slate-950 transition-transform duration-300 group-hover:scale-110" />
+  <span className="relative z-10 tracking-wide">Donate Now</span>
+</button>
+          </a>
+        </div>
+
+        {/* Mobile Hamburger Toggle */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden p-2 text-foreground focus:outline-none"
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+      </div>
+
+      {/* Mobile Menu Dropdown Overlay */}
+      {mobileMenuOpen && (
+        <div className="md:hidden glass-header border-b border-border px-6 pt-4 pb-6 space-y-4 animate-in slide-in-from-top-4 duration-200">
+          <nav className="flex flex-col space-y-3">
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={item.href}
+                onClick={(e) => scrollToSection(e, item.href)}
+                className={`text-base font-medium py-2 border-b border-border/50 ${
+                  activeSection === item.id
+                    ? "text-[var(--primary)] font-bold"
+                    : "text-foreground/80"
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <div className="pt-2 flex flex-col gap-3">
+            <a href="#newsletter" onClick={(e) => scrollToSection(e, "#newsletter")}>
+              <Button variant="accent" className="w-full flex justify-center gap-2">
+                <Heart className="w-4 h-4 fill-current" />
+                <span>Donate Now</span>
+              </Button>
+            </a>
+            <Link
+              to="/admin"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-center text-xs text-[var(--muted-foreground)] py-2"
+            >
+              Access Admin Workspace →
+            </Link>
           </div>
         </div>
-      </nav>
-    </div>
-    </>
+      )}
+    </header>
   );
 }
