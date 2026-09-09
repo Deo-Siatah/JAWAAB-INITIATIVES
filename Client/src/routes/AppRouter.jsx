@@ -11,6 +11,7 @@ import Homepage from "../pages/Homepage";
 import ProgramDetailPage from "../pages/ProgramDetailPage";
 import DonatePage from "../pages/Donatepage";
 import JawaabStory from "../pages/JawaabStory";
+import PartnerPage from "../pages/PartnerPage";
 
 // Admin Pages
 import AdminLogin from "../pages/admin/AdminLogin";
@@ -30,6 +31,7 @@ export default function AppRouter() {
           <Route path="programs/:id" element={<ProgramDetailPage />} />
           <Route path="donate" element={<DonatePage />} />
           <Route path="our-story" element={<JawaabStory />} />
+          <Route path="partner" element={<PartnerPage />} />
         </Route>
 
         {/* Public Login Route */}
