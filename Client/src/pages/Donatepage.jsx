@@ -23,7 +23,7 @@ const givingMethods = [
     color: "bg-emerald-50 text-emerald-800 border-emerald-200",
     details: [
       { label: "Paybill Number", value: "522522" },
-      { label: "Account Number", value: "0758943430" },
+      { label: "Account Number", value: "1344979130" },
       { label: "Account Name", value: "Jawaab Empowerment" },
     ],
     note: "Instant & zero fees for direct local donations across Kenya.",
