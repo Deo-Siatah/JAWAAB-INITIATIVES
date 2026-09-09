@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { Heart, ArrowRight } from "lucide-react";
 
 // Image slides with high visual impact
-import heroImg1 from "../assets/jawaab-hero.jpg";
+import heroImg1 from "../assets/heroadd.jpeg";
 import heroImg2 from "../assets/jawaab3.webp";
 import heroImg3 from "../assets/Jawaab4.webp";
 
