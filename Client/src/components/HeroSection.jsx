@@ -10,19 +10,19 @@ import heroImg3 from "../assets/Jawaab4.webp";
 
 const slides = [
   {
-    image: heroImg1,
+    image: heroImg2,
     tag: "Direct Relief & Empowerment",
     title: "Empowering Communities, Changing Lives Forever.",
     subtitle: "We connect frontline support, sustainable education, and emergency aid directly to the people who need it most.",
   },
   {
-    image: heroImg2,
+    image: heroImg3,
     tag: "Youth & Education Focus",
     title: "Building Futures Through Education & Hope.",
     subtitle: "Providing schools, supplies, and mentorship programs to unlock human potential across underserved regions.",
   },
   {
-    image: heroImg3,
+    image: heroImg1,
     tag: "Sustainable Development",
     title: "Creating Lasting Impact Where It Matters.",
     subtitle: "Clean water, healthcare infrastructure, and community resilience built side-by-side with local leaders.",
