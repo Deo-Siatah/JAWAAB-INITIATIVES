@@ -22,8 +22,8 @@ const givingMethods = [
     icon: Smartphone,
     color: "bg-emerald-50 text-emerald-800 border-emerald-200",
     details: [
-      { label: "Paybill Number", value: "247247" },
-      { label: "Account Number", value: "0712345678" },
+      { label: "Paybill Number", value: "522522" },
+      { label: "Account Number", value: "1344979130" },
       { label: "Account Name", value: "Jawaab Empowerment" },
     ],
     note: "Instant & zero fees for direct local donations across Kenya.",
@@ -34,10 +34,10 @@ const givingMethods = [
     icon: Building2,
     color: "bg-sky-50 text-sky-800 border-sky-200",
     details: [
-      { label: "Bank Name", value: "Equity Bank Kenya" },
+      { label: "Bank Name", value: "Cooperative Bank Kenya" },
       { label: "Branch Name", value: "Narok Branch" },
       { label: "Account Name", value: "Jawaab Empowerment Initiatives" },
-      { label: "Account Number", value: "0120283746591" },
+      { label: "Account Number", value: "coming soon" },
       { label: "SWIFT / BIC Code", value: "EQBLKENAXXX" },
     ],
     note: "Recommended for international bank transfers and regional wire grants.",

@@ -123,7 +123,7 @@ export default function Footer() {
                     <Phone className="w-4 h-4" />
                   </div>
                   <a href="tel:+254768659047" className="hover:text-white font-medium">
-                    +254 768 659 047
+                    +254 758 943 430
                   </a>
                 </div>
 
